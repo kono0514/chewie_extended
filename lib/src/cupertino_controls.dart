@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:chewie_extended/src/chewie_player.dart';
-import 'package:chewie_extended/src/chewie_progress_colors.dart';
-import 'package:chewie_extended/src/cupertino_progress_bar.dart';
-import 'package:chewie_extended/src/utils.dart';
+import 'package:chewie/src/chewie_player.dart';
+import 'package:chewie/src/chewie_progress_colors.dart';
+import 'package:chewie/src/cupertino_progress_bar.dart';
+import 'package:chewie/src/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:open_iconic_flutter/open_iconic_flutter.dart';
@@ -507,12 +507,15 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   }
 
   void _playPause() {
-    bool isFinished;
-    if (_latestValue.duration != null) {
-      isFinished = _latestValue.position >= _latestValue.duration;
-    } else {
-      isFinished = false;
-    }
+      bool isFinished;
+      if( _latestValue.duration != null)
+      {
+        isFinished = _latestValue.position >= _latestValue.duration;
+      }
+      else
+      {
+        isFinished = false;
+      }
 
     setState(() {
       if (controller.value.isPlaying) {

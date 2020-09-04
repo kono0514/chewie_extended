@@ -1,6 +1,6 @@
 import 'package:auto_orientation/auto_orientation.dart';
-import 'package:chewie_extended/chewie.dart';
-import 'package:chewie_extended/src/chewie_player.dart';
+import 'package:chewie/chewie.dart';
+import 'package:chewie/src/chewie_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
