@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:chewie/src/chewie_progress_colors.dart';
-import 'package:chewie/src/player_with_controls.dart';
+import 'package:chewie_extended/src/chewie_progress_colors.dart';
+import 'package:chewie_extended/src/player_with_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
