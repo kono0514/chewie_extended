@@ -182,10 +182,7 @@ class ChewieFSState extends State<ChewieFS> {
     super.initState();
 
     SystemChrome.setEnabledSystemUIOverlays([]);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    AutoOrientation.landscapeAutoMode(forceSensor: true);
 
     if (!widget.controller.allowedScreenSleep) {
       Wakelock.enable();
