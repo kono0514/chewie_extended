@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_orientation/auto_orientation.dart';
 import 'package:chewie_extended/src/chewie_progress_colors.dart';
 import 'package:chewie_extended/src/player_with_controls.dart';
 import 'package:flutter/material.dart';
@@ -181,10 +182,7 @@ class ChewieFSState extends State<ChewieFS> {
     super.initState();
 
     SystemChrome.setEnabledSystemUIOverlays([]);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    AutoOrientation.landscapeAutoMode(forceSensor: true);
 
     if (!widget.controller.allowedScreenSleep) {
       Wakelock.enable();
