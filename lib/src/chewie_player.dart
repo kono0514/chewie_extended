@@ -351,6 +351,10 @@ class ChewieController extends ChangeNotifier {
 
   bool get isPlaying => videoPlayerController.value.isPlaying;
 
+  bool _hideControlsNow = false;
+
+  bool get shouldHideControlsNow => _hideControlsNow;
+
   Future _initialize() async {
     await videoPlayerController.setLooping(looping);
 
@@ -400,6 +404,12 @@ class ChewieController extends ChangeNotifier {
 
   void togglePause() {
     isPlaying ? pause() : play();
+  }
+
+  void hideControls() {
+    _hideControlsNow = true;
+    notifyListeners();
+    _hideControlsNow = false;
   }
 
   Future<void> play() async {
