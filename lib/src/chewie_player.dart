@@ -154,71 +154,6 @@ class ChewieState extends State<Chewie> {
   }
 }
 
-/// Fullscreen-only player
-///
-/// Difference from "Chewie" widget:
-/// - Does not respond to any fullscreen events.
-/// - Immediately switches phone to landscape mode instead of waiting for the
-///   video to load first and then switching.
-class ChewieFS extends StatefulWidget {
-  ChewieFS({
-    Key key,
-    this.controller,
-  })  : assert(controller != null, 'You must provide a chewie controller'),
-        super(key: key);
-
-  /// The [ChewieController]
-  final ChewieController controller;
-
-  @override
-  ChewieFSState createState() {
-    return ChewieFSState();
-  }
-}
-
-class ChewieFSState extends State<ChewieFS> {
-  @override
-  void initState() {
-    super.initState();
-
-    SystemChrome.setEnabledSystemUIOverlays([]);
-    AutoOrientation.landscapeAutoMode(forceSensor: true);
-
-    if (!widget.controller.allowedScreenSleep) {
-      Wakelock.enable();
-    }
-  }
-
-  @override
-  void dispose() {
-    // The wakelock plugins checks whether it needs to perform an action internally,
-    // so we do not need to check Wakelock.isEnabled.
-    Wakelock.disable();
-
-    SystemChrome.setEnabledSystemUIOverlays(
-        widget.controller.systemOverlaysAfterFullScreen);
-    SystemChrome.setPreferredOrientations(
-        widget.controller.deviceOrientationsAfterFullScreen);
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        alignment: Alignment.center,
-        color: Colors.black,
-        child: _ChewieControllerProvider(
-          controller: widget.controller,
-          child: PlayerWithControls(),
-        ),
-      ),
-    );
-  }
-}
-
 /// The ChewieController is used to configure and drive the Chewie Player
 /// Widgets. It provides methods to control playback, such as [pause] and
 /// [play], as well as methods that control the visual appearance of the player,
@@ -451,4 +386,69 @@ class _ChewieControllerProvider extends InheritedWidget {
   @override
   bool updateShouldNotify(_ChewieControllerProvider old) =>
       controller != old.controller;
+}
+
+/// Fullscreen-only player
+///
+/// Difference from "Chewie" widget:
+/// - Does not respond to any fullscreen events.
+/// - Immediately switches phone to landscape mode instead of waiting for the
+///   video to load first and then switching.
+class ChewieFS extends StatefulWidget {
+  ChewieFS({
+    Key key,
+    this.controller,
+  })  : assert(controller != null, 'You must provide a chewie controller'),
+        super(key: key);
+
+  /// The [ChewieController]
+  final ChewieController controller;
+
+  @override
+  ChewieFSState createState() {
+    return ChewieFSState();
+  }
+}
+
+class ChewieFSState extends State<ChewieFS> {
+  @override
+  void initState() {
+    super.initState();
+
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    AutoOrientation.landscapeAutoMode(forceSensor: true);
+
+    if (!widget.controller.allowedScreenSleep) {
+      Wakelock.enable();
+    }
+  }
+
+  @override
+  void dispose() {
+    // The wakelock plugins checks whether it needs to perform an action internally,
+    // so we do not need to check Wakelock.isEnabled.
+    Wakelock.disable();
+
+    SystemChrome.setEnabledSystemUIOverlays(
+        widget.controller.systemOverlaysAfterFullScreen);
+    SystemChrome.setPreferredOrientations(
+        widget.controller.deviceOrientationsAfterFullScreen);
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        alignment: Alignment.center,
+        color: Colors.black,
+        child: _ChewieControllerProvider(
+          controller: widget.controller,
+          child: PlayerWithControls(),
+        ),
+      ),
+    );
+  }
 }
