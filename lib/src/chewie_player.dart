@@ -171,18 +171,12 @@ class ChewieState extends State<Chewie> {
       /// Default behavior
       /// Video w > h means we force landscape
       if (videoWidth > videoHeight) {
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.landscapeLeft,
-          DeviceOrientation.landscapeRight,
-        ]);
+        AutoOrientation.landscapeAutoMode(forceSensor: true);
       }
 
       /// Video h > w means we force portrait
       else if (videoHeight > videoWidth) {
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.portraitUp,
-          DeviceOrientation.portraitDown,
-        ]);
+        AutoOrientation.portraitAutoMode(forceSensor: true);
       }
 
       /// Otherwise if h == w (square video)
