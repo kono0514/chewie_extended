@@ -85,7 +85,6 @@ class _MaterialControlsState extends State<MaterialControls> {
 
   void _dispose() {
     controller.removeListener(_updateState);
-    chewieController.removeListener(_chewieListener);
     _hideTimer?.cancel();
     _initTimer?.cancel();
     _showAfterExpandCollapseTimer?.cancel();
@@ -340,7 +339,6 @@ class _MaterialControlsState extends State<MaterialControls> {
 
   Future<Null> _initialize() async {
     controller.addListener(_updateState);
-    chewieController.addListener(_chewieListener);
 
     _updateState();
 
@@ -354,15 +352,6 @@ class _MaterialControlsState extends State<MaterialControls> {
         setState(() {
           _hideStuff = false;
         });
-      });
-    }
-  }
-
-  void _chewieListener() async {
-    if (chewieController.shouldHideControlsNow) {
-      setState(() {
-        _hideStuff = true;
-        _hideTimer?.cancel();
       });
     }
   }
