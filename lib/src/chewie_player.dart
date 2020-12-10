@@ -150,9 +150,10 @@ class ChewieState extends State<Chewie> {
   }
 
   void onEnterFullScreen() {
-    final videoWidth = widget.controller.videoPlayerController.value.size.width;
+    final videoWidth =
+        widget.controller.videoPlayerController.value.size?.width;
     final videoHeight =
-        widget.controller.videoPlayerController.value.size.height;
+        widget.controller.videoPlayerController.value.size?.height;
 
     if (widget.controller.systemOverlaysOnEnterFullScreen != null) {
       /// Optional user preferred settings
@@ -168,9 +169,14 @@ class ChewieState extends State<Chewie> {
       SystemChrome.setPreferredOrientations(
           widget.controller.deviceOrientationsOnEnterFullScreen);
     } else {
-      /// Default behavior
+      /// Video was not fully initialized yet and returned null width and height.
+      /// Assume landscape mode
+      if (videoWidth == null || videoHeight == null) {
+        AutoOrientation.landscapeAutoMode(forceSensor: true);
+      }
+
       /// Video w > h means we force landscape
-      if (videoWidth > videoHeight) {
+      else if (videoWidth > videoHeight) {
         AutoOrientation.landscapeAutoMode(forceSensor: true);
       }
 
